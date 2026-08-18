@@ -1,31 +1,92 @@
 <%
-const isAvailable = product.stock > 0;
-const badgeLabel = isAvailable ? 'Tersedia' : 'Habis';
-const badgeColor = isAvailable ? 'green' : 'red';
+const isAvailable =
+  product.stock > 0;
+
+const badgeLabel =
+  isAvailable
+    ? 'Tersedia'
+    : 'Habis';
+
+const badgeColor =
+  isAvailable
+    ? 'green'
+    : 'red';
 %>
+
 <div
-  class="product-card bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-xl p-4 shadow-sm hover:shadow-md transition-shadow"
+  class="product-card group rounded-2xl border border-white/10 bg-white/[0.045] p-4 shadow-xl shadow-black/10 hover:-translate-y-1 hover:border-fuchsia-400/40 hover:bg-white/[0.07] transition-all duration-300"
   data-stock="<%= product.stock %>"
 >
-  <div class="flex items-start justify-between mb-2">
-    <h3 class="font-semibold text-gray-800 dark:text-gray-100"><%= product.name %></h3>
-    <%- include('badge', { label: badgeLabel, color: badgeColor }) %>
-  </div>
-  <p class="text-sm text-gray-500 dark:text-gray-400 mb-3"><%= product.description || 'Tanpa deskripsi' %></p>
-  <div class="flex items-center justify-between mb-3">
-    <span class="text-blue-600 dark:text-blue-400 font-bold">
-      Rp<%= product.price.toLocaleString('id-ID') %>
+
+  <div class="h-40 rounded-xl bg-gradient-to-br from-slate-800 to-slate-900 border border-white/5 flex items-center justify-center mb-4">
+
+    <span class="text-4xl font-black text-white/10 group-hover:text-fuchsia-300/30 transition">
+      UC
     </span>
-    <span class="text-xs text-gray-400 dark:text-gray-500">Stok: <%= product.stock %></span>
+
   </div>
+
+  <div class="flex items-start justify-between gap-3 mb-2">
+
+    <div>
+
+      <h3 class="font-bold text-white leading-tight">
+        <%= product.name %>
+      </h3>
+
+      <p class="text-[11px] uppercase tracking-wider text-slate-500 mt-1">
+        Product #<%= product.id %>
+      </p>
+
+    </div>
+
+    <%- include('badge', {
+      label: badgeLabel,
+      color: badgeColor
+    }) %>
+
+  </div>
+
+  <p class="text-sm text-slate-400 mb-4 line-clamp-2 min-h-10">
+    <%= product.description || 'Tanpa deskripsi' %>
+  </p>
+
+  <div class="flex items-end justify-between mb-4">
+
+    <span class="text-fuchsia-300 font-black">
+      Rp<%= Number(product.price).toLocaleString('id-ID') %>
+    </span>
+
+    <span class="text-xs text-slate-500">
+      Stok
+      <b class="text-slate-300">
+        <%= product.stock %>
+      </b>
+    </span>
+
+  </div>
+
   <button
-    class="add-to-cart-btn w-full <%= isAvailable ? 'bg-blue-600 hover:bg-blue-700 text-white' : 'bg-gray-200 dark:bg-gray-700 text-gray-400 cursor-not-allowed' %> text-sm font-semibold py-2 rounded-lg transition-colors"
+    class="add-to-cart-btn w-full <%= isAvailable
+      ? 'bg-white text-slate-950 hover:bg-fuchsia-100'
+      : 'bg-white/10 text-slate-500 cursor-not-allowed'
+    %> text-sm font-bold py-2.5 rounded-xl transition"
+
     data-id="<%= product.id %>"
     data-name="<%= product.name %>"
     data-price="<%= product.price %>"
-    data-stock="<%= product.stock %>"
-    <%= isAvailable ? '' : 'disabled' %>
+
+    <%= isAvailable
+      ? ''
+      : 'disabled'
+    %>
   >
-    <%= isAvailable ? '+ Tambah ke Keranjang' : 'Stok Habis' %>
+
+    <%= isAvailable
+      ? 'Tambah ke Keranjang'
+      : 'Stok Habis'
+    %>
+
   </button>
+
 </div>

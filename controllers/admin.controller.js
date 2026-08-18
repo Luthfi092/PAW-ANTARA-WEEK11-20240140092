@@ -1,6 +1,6 @@
 const bcrypt = require('bcrypt');
 const { Admin } = require('../models');
-const sendResponse = require('../utils/response');
+const response = require('../utils/response');
 
 // gak ada endpoint public buat register admin, sengaja - dibikin lewat seeder aja
 

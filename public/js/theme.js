@@ -1,28 +1,57 @@
-// State tema cuma 1 field: 'dark' atau 'light'.
-// Nilai awal dibaca dari class 'dark' yang udah ke-set di <html> (liat index.ejs).
 const themeStore = createStore({
-  theme: document.documentElement.classList.contains('dark') ? 'dark' : 'light',
+  theme:
+    document.documentElement.classList.contains('dark')
+      ? 'dark'
+      : 'light',
 });
 
 function renderTheme(state) {
-  const icon = document.getElementById('theme-icon');
+
+  const icon =
+    document.getElementById('theme-icon');
 
   if (state.theme === 'dark') {
-    document.documentElement.classList.add('dark');
-    icon.textContent = '☀️'; // pas mode gelap, tombolnya nawarin pindah ke terang
+
+    document.documentElement.classList.add(
+      'dark'
+    );
+
+    icon.textContent = 'LIGHT';
+
   } else {
-    document.documentElement.classList.remove('dark');
-    icon.textContent = '🌙';
+
+    document.documentElement.classList.remove(
+      'dark'
+    );
+
+    icon.textContent = 'DARK';
+
   }
 
-  // simpen preferensi biar keinget pas reload/kunjungan berikutnya
-  localStorage.setItem('theme', state.theme);
+  localStorage.setItem(
+    'theme',
+    state.theme
+  );
 }
 
 themeStore.subscribe(renderTheme);
-renderTheme(themeStore.getState()); // sync icon pas pertama load
 
-document.getElementById('theme-toggle').addEventListener('click', () => {
-  const current = themeStore.getState().theme;
-  themeStore.setState({ theme: current === 'dark' ? 'light' : 'dark' });
-});
+renderTheme(
+  themeStore.getState()
+);
+
+document
+  .getElementById('theme-toggle')
+  .addEventListener('click', () => {
+
+    const current =
+      themeStore.getState().theme;
+
+    themeStore.setState({
+      theme:
+        current === 'dark'
+          ? 'light'
+          : 'dark'
+    });
+
+  });
